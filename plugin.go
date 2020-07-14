@@ -90,7 +90,7 @@ func (p Plugin) Exec() error {
 	var b []byte
 
 	// construct URL to get access token
-	accessURL := "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=" + p.Config.CorpID + "&corpsecret=" + p.Config.CorpSecret
+	accessURL := "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + p.Config.CorpID + "&secret=" + p.Config.CorpSecret
 	fmt.Println("URL:>", accessURL)
 
 	req, err := http.NewRequest("GET", accessURL, bytes.NewBuffer(b))
@@ -157,7 +157,7 @@ func (p Plugin) Exec() error {
 	}
 
 	// POST URL
-	url := "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + s.AccessToken
+	url := "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + s.AccessToken
 
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(b))
 	request.Header.Set("Content-Type", "application/json")
